@@ -1,17 +1,27 @@
-# devfolio_app
+# DevFolio App 🚀
 
-A new Flutter project.
+Um projeto de portefólio construído em Flutter, focado em **Componentização**, **Clean Architecture** e **Responsividade**. Desenvolvido em dupla para cumprir rigorosamente os critérios técnicos de avaliação.
 
-## Getting Started
+## 👥 Equipa e Contribuições
 
-This project is a starting point for a Flutter application.
+- **Brayan Biazini:** Estruturação da Clean Architecture, componentização (`lib/widgets/`), layouts dinâmicos, gradientes e estilização avançada do crachá.
+- **Pietro Pereira:** Implementação do Dashboard responsivo, eixos proporcionais, `GridView` adaptável e sobreposição de selos de destaque com `Stack` e `Positioned`.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tecnologias e Estruturas Utilizadas
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- **Flutter & Dart**
+- **GridView.count:** Implementado para a grelha responsiva dos blocos de estatísticas.
+- **Stack & Positioned:** Utilizados para a sobreposição do selo "Novo" nos cartões do dashboard.
+- **LinearGradient & CircleAvatar:** Aplicados para a estilização visual premium do perfil.
+- **LayoutBuilder & ConstrainedBox:** Para garantir uma adaptação perfeita do layout no navegador web.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📸 Demonstração do Projeto
+*(A imagem abaixo comprova a aplicação a correr no servidor local do Senai na porta 8080)*
+
+![App no Servidor](print_servidor.png)
+
+## 🚀 Como Executar
+
+Para testar o projeto no ambiente web, clone o repositório e execute o seguinte comando:
+```bash
+flutter run -d web-server --web-port 8080
