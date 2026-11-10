@@ -18,7 +18,8 @@ Um projeto de portefólio construído em Flutter, focado em **Componentização*
 ## 📸 Demonstração do Projeto
 *(A imagem abaixo comprova a aplicação a correr no servidor local do Senai na porta 8080)*
 
-![App no Servidor](print_servidor.png)
+![App no Servidor](print_servidor1.png)
+![App no Servidor](print_servidor2.png)
 
 ## 🚀 Como Executar
 
