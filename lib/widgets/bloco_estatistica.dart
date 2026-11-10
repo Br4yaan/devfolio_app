@@ -1,51 +1,68 @@
 import 'package:flutter/material.dart';
 
-/// Bloco reutilizável que mostra uma métrica (ícone + valor + título).
 class BlocoEstatistica extends StatelessWidget {
   final String titulo;
   final String valor;
-  final IconData icone;
-  final Color cor;
+  final bool destaque;
 
   const BlocoEstatistica({
-    super.key,
+    Key? key,
     required this.titulo,
     required this.valor,
-    required this.icone,
-    this.cor = Colors.indigo,
-  });
+    this.destaque = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: cor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3)),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+    return Card(
+      elevation: 6.0,
+      shadowColor: Colors.black.withOpacity(0.2),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Stack(
         children: [
-          Icon(icone, color: Colors.white, size: 32),
-          const SizedBox(height: 8),
-          Text(
-            valor,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+          Center( // Centraliza o texto dentro do card
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  valor,
+                  style: const TextStyle(
+                    fontSize: 36, 
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF4A00E0), // Cor combinando com o gradiente
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  titulo,
+                  style: const TextStyle(
+                    fontSize: 16, 
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            titulo,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white70, fontSize: 14),
-          ),
+          if (destaque)
+            Positioned(
+              top: 12,
+              right: 12,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.orangeAccent,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(color: Colors.orange.withOpacity(0.4), blurRadius: 4, offset: const Offset(0, 2))
+                  ]
+                ),
+                child: const Text(
+                  'Novo',
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -1,74 +1,108 @@
 import 'package:flutter/material.dart';
 
-/// Crachá de perfil do desenvolvedor (nome, curso, tecnologias).
 class CrachaPerfil extends StatelessWidget {
   final String nome;
-  final String curso;
-  final String bio;
-  final List<String> tecnologias;
+  final String papel;
+  final String contribuicao;
+  final String avatarUrl;
+  final List<String> habilidades;
 
   const CrachaPerfil({
-    super.key,
+    Key? key,
     required this.nome,
-    required this.curso,
-    required this.bio,
-    required this.tecnologias,
-  });
-
-  String get _iniciais {
-    final partes = nome.trim().split(' ');
-    if (partes.length == 1) return partes.first[0].toUpperCase();
-    return (partes.first[0] + partes.last[0]).toUpperCase();
-  }
+    required this.papel,
+    required this.contribuicao,
+    required this.avatarUrl,
+    required this.habilidades,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.indigo,
-              child: Text(
-                _iniciais,
-                style: const TextStyle(
-                  fontSize: 28,
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              )
+            ],
+            gradient: const LinearGradient(
+              colors: [Color(0xFF4A00E0), Color(0xFF8E2DE2)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Avatar com foto dinâmica
+              Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  shape: BoxShape.circle,
+                ),
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.grey[200],
+                  backgroundImage: NetworkImage(avatarUrl),
                 ),
               ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    nome,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(curso, style: const TextStyle(color: Colors.black54)),
-                  const SizedBox(height: 8),
-                  Text(bio),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 4,
-                    children: tecnologias
-                        .map((t) => Chip(label: Text(t)))
-                        .toList(),
-                  ),
-                ],
+              const SizedBox(height: 20),
+              Text(
+                nome,
+                style: const TextStyle(
+                  fontSize: 28, 
+                  fontWeight: FontWeight.w800, 
+                  color: Colors.white,
+                  letterSpacing: 1.2,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                papel,
+                style: TextStyle(
+                  fontSize: 16, 
+                  color: Colors.white.withOpacity(0.9),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 12),
+              // Faixa mostrando a contribuição de cada um no projeto
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  contribuicao,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14, 
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                alignment: WrapAlignment.center,
+                children: habilidades.map((hab) {
+                  return Chip(label: Text(hab, style: const TextStyle(fontWeight: FontWeight.bold)));
+                }).toList(),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,52 +1,46 @@
 import 'package:flutter/material.dart';
 import 'bloco_estatistica.dart';
 
-/// Dashboard com as métricas do desenvolvedor, organizado em um Wrap
-/// para se adaptar a telas largas (navegador) e estreitas (celular).
 class DashboardMetricas extends StatelessWidget {
-  const DashboardMetricas({super.key});
+  final String projetos;
+  final String commits;
+  final String apps;
+  final String cafes;
+
+  const DashboardMetricas({
+    Key? key,
+    required this.projetos,
+    required this.commits,
+    required this.apps,
+    required this.cafes,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          'Dashboard de Métricas',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 800),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            int colunas = constraints.maxWidth > 600 ? 4 : 2;
+
+            return GridView.count(
+              crossAxisCount: colunas,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              childAspectRatio: 1.0,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                BlocoEstatistica(titulo: 'Projetos', valor: projetos, destaque: true),
+                BlocoEstatistica(titulo: 'Commits', valor: commits),
+                BlocoEstatistica(titulo: 'Apps Publicados', valor: apps),
+                BlocoEstatistica(titulo: 'Cafés tomados', valor: cafes),
+              ],
+            );
+          },
         ),
-        SizedBox(height: 12),
-        Wrap(
-          spacing: 16,
-          runSpacing: 16,
-          children: [
-            BlocoEstatistica(
-              titulo: 'Projetos',
-              valor: '8',
-              icone: Icons.folder_open,
-              cor: Colors.indigo,
-            ),
-            BlocoEstatistica(
-              titulo: 'Commits',
-              valor: '120',
-              icone: Icons.commit,
-              cor: Colors.teal,
-            ),
-            BlocoEstatistica(
-              titulo: 'Linguagens',
-              valor: '4',
-              icone: Icons.code,
-              cor: Colors.deepOrange,
-            ),
-            BlocoEstatistica(
-              titulo: 'Horas de estudo',
-              valor: '250',
-              icone: Icons.schedule,
-              cor: Colors.purple,
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
